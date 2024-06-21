@@ -1,6 +1,8 @@
+// src/renderer/src/components/ChatInput.tsx
 import React, { useState } from 'react';
 import { IoSettings } from 'react-icons/io5';
 import ProviderModelSelector from './ProviderModelSelector';
+import { usePreferences } from '@renderer/contexts/PreferencesContext';
 
 interface ChatInputProps {
   onSendMessage: (message: string, provider: string, model: string) => void;
@@ -8,15 +10,24 @@ interface ChatInputProps {
 }
 
 const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isGenerating = false }) => {
+  const { preferences } = usePreferences();
   const [input, setInput] = useState('');
+  const [selectedProvider, setSelectedProvider] = useState(preferences.providers[0].name);
+  const [selectedModel, setSelectedModel] = useState(preferences.providers[0].models[0].name);
   const [showSettings, setShowSettings] = useState(false);
-  const [provider, setProvider] = useState<string>('OpenAI');
-  const [model, setModel] = useState<string>('GPT-3.5-turbo');
+
+  const handleProviderChange = (provider: string) => {
+    setSelectedProvider(provider);
+  };
+
+  const handleModelChange = (model: string) => {
+    setSelectedModel(model);
+  };
 
   const handleSendMessage = () => {
     if (!isGenerating) {
       if (input.trim()) {
-        onSendMessage(input.trim(), provider, model);
+        onSendMessage(input.trim(), selectedProvider, selectedModel);
         setInput('');
       }
     }
@@ -30,17 +41,18 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isGenerating = fal
     setShowSettings(false);
   };
 
-  const handleProviderModelSelect = (selectedProvider: string, selectedModel: string) => {
-    setProvider(selectedProvider);
-    setModel(selectedModel);
-  };
-
   return (
     <div className="p-4 bg-gray-1000">
       {showSettings ? (
         <div className="flex flex-col" onClick={handleSettingsClose}>
           <SettingsPanel />
-          <ProviderModelSelector onSelect={handleProviderModelSelect} />
+          <ProviderModelSelector
+            selectedProvider={selectedProvider}
+            selectedModel={selectedModel}
+            preferences={preferences}
+            onProviderChange={handleProviderChange}
+            onModelChange={handleModelChange}
+          />
           <button
             className="mt-2 p-2 bg-blue-900 text-gray-300 rounded hover:text-gray-100"
             onClick={handleSettingsClick}
@@ -51,7 +63,13 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isGenerating = fal
       ) : (
         <div className="flex flex-col">
           <div className="flex flex-row mb-2">
-            <ProviderModelSelector onSelect={handleProviderModelSelect} />
+            <ProviderModelSelector
+              selectedProvider={selectedProvider}
+              selectedModel={selectedModel}
+              preferences={preferences}
+              onProviderChange={handleProviderChange}
+              onModelChange={handleModelChange}
+            />
           </div>
           <div className="flex flex-row">
             <textarea

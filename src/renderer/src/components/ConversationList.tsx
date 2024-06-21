@@ -1,30 +1,24 @@
-import React, { createRef, useState } from 'react';
+import React from 'react';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // import the stylesheet
 import { IoAddCircleOutline, IoTrashOutline } from 'react-icons/io5';
-import { MessageProps } from './Message';
-
-export interface Conversation {
-  id: string;
-  messages: MessageProps[];
-  title: string;
-}
+import { useConversationsState } from '@renderer/contexts/ConversationsContext';
 
 interface ConversationListProps {
-  conversations: { [key: string]: Conversation };
-  activeConversationId: string;
+  activeConversationId: string | null;
   handleConversationClick: (conversationId: string) => void;
   handleNewConversation: () => void; // add this prop
   handleDeleteConversation: (id: string) => void; // add this prop
 }
 
 const ConversationList: React.FC<ConversationListProps> = ({
-  conversations,
   activeConversationId,
   handleConversationClick,
   handleNewConversation, // add this prop
   handleDeleteConversation // add this prop
 }) => {
+  const { conversationState } = useConversationsState();
+
   return (
     <div className="">
       <div className="flex justify-between items-center">
@@ -37,7 +31,7 @@ const ConversationList: React.FC<ConversationListProps> = ({
         </span>
       </div>
       <ul className="list-none pb-2 px-3 m-0 ">
-        {Object.entries(conversations)
+        {Object.entries(conversationState.conversations)
           .reverse()
           .map(([key, conversation], index) => (
             <li key={index}>

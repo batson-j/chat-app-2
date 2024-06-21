@@ -1,41 +1,38 @@
-import React, { useState, useEffect } from 'react';
-
-interface Provider {
-  name: string;
-  models: string[];
-}
-
-const providers: Provider[] = [
-  { name: 'OpenAI', models: ['GPT-3.5-turbo', 'GPT-4'] },
-  { name: 'Anthropic', models: ['Claude-v1', 'Claude-instant-v1'] },
-  { name: 'Cohere', models: ['Command', 'Generate'] }
-  // Add more providers as needed
-];
+// src/renderer/src/components/ProviderModelSelector.tsx
+import React, { useEffect, useState } from 'react';
+import { PreferencesState } from '../contexts/PreferencesContext';
 
 interface ProviderModelSelectorProps {
-  onSelect: (provider: string, model: string) => void;
+  selectedProvider: string;
+  selectedModel: string;
+  preferences: PreferencesState;
+  onProviderChange: (provider: string) => void;
+  onModelChange: (model: string) => void;
 }
 
-const ProviderModelSelector: React.FC<ProviderModelSelectorProps> = ({ onSelect }) => {
-  const [selectedProvider, setSelectedProvider] = useState<string>(providers[0].name);
-  const [selectedModel, setSelectedModel] = useState<string>(providers[0].models[0]);
-
-  useEffect(() => {
-    const provider = providers.find((p) => p.name === selectedProvider);
-    if (provider) {
-      setSelectedModel(provider.models[0]);
+const ProviderModelSelector: React.FC<ProviderModelSelectorProps> = ({
+  selectedProvider,
+  selectedModel,
+  preferences,
+  onProviderChange,
+  onModelChange
+}) => {
+  const handleProviderChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    onProviderChange(event.target.value);
+    const provider = preferences.providers.find((p) => p.name === event.target.value);
+    if (provider && provider.models.length > 0) {
+      onModelChange(provider.models[0].name); // Default to the first model of the selected provider
     }
-  }, [selectedProvider]);
-
-  const handleProviderChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedProvider(e.target.value);
-    onSelect(e.target.value, selectedModel);
   };
 
-  const handleModelChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedModel(e.target.value);
-    onSelect(selectedProvider, e.target.value);
+  const handleModelChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    onModelChange(event.target.value);
   };
+
+  const selectedProviderData = preferences.providers.find(
+    (provider) => provider.name === selectedProvider
+  );
+  const isProviderSelected = selectedProviderData !== undefined;
 
   return (
     <div className="flex items-center space-x-2">
@@ -44,7 +41,7 @@ const ProviderModelSelector: React.FC<ProviderModelSelectorProps> = ({ onSelect 
         onChange={handleProviderChange}
         className="bg-gray-700 text-white rounded px-2 py-1"
       >
-        {providers.map((provider) => (
+        {preferences.providers.map((provider) => (
           <option key={provider.name} value={provider.name}>
             {provider.name}
           </option>
@@ -54,12 +51,12 @@ const ProviderModelSelector: React.FC<ProviderModelSelectorProps> = ({ onSelect 
         value={selectedModel}
         onChange={handleModelChange}
         className="bg-gray-700 text-white rounded px-2 py-1"
+        disabled={!isProviderSelected}
       >
-        {providers
-          .find((p) => p.name === selectedProvider)
-          ?.models.map((model) => (
-            <option key={model} value={model}>
-              {model}
+        {isProviderSelected &&
+          selectedProviderData.models.map((model) => (
+            <option key={model.name} value={model.name}>
+              {model.displayName}
             </option>
           ))}
       </select>

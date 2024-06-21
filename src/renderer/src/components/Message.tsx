@@ -2,18 +2,7 @@ import React, { useState } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import Markdown from 'react-markdown';
-
-export enum MessageType {
-  Reply,
-  UserMessage
-}
-
-export interface MessageProps {
-  text: string;
-  messageType: MessageType;
-  provider?: string;
-  model?: string;
-}
+import { MessageProps, MessageType } from '../../../model/Conversation';
 
 const Message: React.FC<MessageProps> = ({ text, messageType }) => {
   const [copied, setCopied] = useState(false);

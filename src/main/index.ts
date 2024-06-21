@@ -1,6 +1,9 @@
 import { app, shell, BrowserWindow, ipcMain, Menu } from 'electron';
 import { join } from 'path';
 import { electronApp, optimizer, is } from '@electron-toolkit/utils';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 let mainWindow: BrowserWindow | null = null;
 let preferencesWindow: BrowserWindow | null = null;
@@ -128,3 +131,58 @@ app.on('window-all-closed', () => {
 
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.
+import { ChatOpenAI } from '@langchain/openai';
+import { Conversation, MessageType } from '../model/Conversation';
+
+let model: ChatOpenAI;
+
+ipcMain.on(
+  'conversation',
+  async (event, conversation: Conversation, provider: string, modelName: string) => {
+    // Update the model based on the selected provider and model
+    console.log('conversation:', conversation);
+    console.log('provider:', provider);
+    console.log('modelName:', modelName);
+    switch (provider) {
+      case 'OpenAI':
+        model = new ChatOpenAI({
+          apiKey: process.env.OPENAI_API_KEY,
+          modelName: modelName
+        });
+        break;
+      // Add cases for other providers here
+      default:
+        console.error('Unsupported provider:', provider);
+        return;
+    }
+
+    const tokens = [] as string[];
+    const text = conversation.messages.map((m) => m.text);
+    const message = {
+      text: '',
+      messageType: MessageType.Reply,
+      provider: provider,
+      modelName: modelName
+    };
+    try {
+      for await (const chunk of await model.stream(text)) {
+        tokens.push(chunk.content.toString());
+        console.log(tokens);
+        event.sender.send('reply-stream', {
+          ...conversation,
+          messages: [
+            ...conversation.messages,
+            {
+              ...message,
+              text: tokens.join('')
+            }
+          ]
+        });
+      }
+      event.sender.send('reply-stream-end');
+    } catch (error) {
+      console.error('Error in conversation:', error);
+      //event.sender.send('reply-stream-error', error.message);
+    }
+  }
+);
