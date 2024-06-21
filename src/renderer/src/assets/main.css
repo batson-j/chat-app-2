@@ -173,3 +173,12 @@ code {
     display: none;
   }
 }
+
+.App {
+  width: 100vw; /* Full width of the viewport */
+  height: 100vh; /* Full height of the viewport */
+  margin: 0;
+  padding: 0;
+  display: flex; /* Optional: Helps with inner layout */
+  flex-direction: column; /* Optional: Direct children layout direction */
+}

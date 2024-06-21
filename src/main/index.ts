@@ -8,8 +8,8 @@ let preferencesWindow: BrowserWindow | null = null;
 function createWindow(): void {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 900,
-    height: 670,
+    width: 1600,
+    height: 900,
     show: false,
     autoHideMenuBar: false,
     ...(process.platform === 'linux' ? {} : {}),

@@ -20,17 +20,18 @@
     "build:mac": "electron-vite build && electron-builder --mac",
     "build:linux": "electron-vite build && electron-builder --linux",
     "build-css": "postcss src/styles.css -o public/styles.css"
-
   },
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.0",
     "@electron-toolkit/utils": "^3.0.0",
-    "autoprefixer": "^10.4.19",
-    "postcss": "^8.4.38",
+    "@tippyjs/react": "^4.2.6",
+    "allotment": "^1.20.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-icons": "^5.2.1",
+    "react-markdown": "^9.0.1",
     "react-router-dom": "^6.23.1",
-    "tailwindcss": "^3.4.4"
+    "react-syntax-highlighter": "^15.5.0"
   },
   "devDependencies": {
     "@electron-toolkit/eslint-config-prettier": "^2.0.0",
@@ -39,7 +40,9 @@
     "@types/node": "^18.19.9",
     "@types/react": "^18.2.48",
     "@types/react-dom": "^18.2.18",
+    "@types/react-syntax-highlighter": "^15.5.13",
     "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.19",
     "electron": "^28.2.0",
     "electron-builder": "^24.9.1",
     "electron-vite": "^2.2.0",
@@ -50,7 +53,9 @@
     "eslint-plugin-prettier": "^5.1.3",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.2",
+    "postcss": "^8.4.38",
     "prettier": "^3.3.2",
+    "tailwindcss": "^3.4.4",
     "typescript": "^5.3.3",
     "vite": "^5.0.12"
   },
