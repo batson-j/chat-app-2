@@ -1,5 +1,5 @@
-appId: com.electron.app
-productName: electron-vite-react-ts
+appId: com.chat.app
+productName: chat-app
 directories:
   buildResources: build
 files:
@@ -12,7 +12,7 @@ files:
 asarUnpack:
   - resources/**
 win:
-  executableName: electron-vite-react-ts
+  executableName: chat-app
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}
