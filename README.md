@@ -10,6 +10,7 @@ LLM Chat application using Electron with React and TypeScript.
 - [x] Token streaming
 - [x] Syntax highlighting for code blocks
 - [x] Nifty styling (Courtesy of Claude Sonnet 3.5)
+- [x] Copy button for code blocks (shows up on hover) 
 - [ ] RAG?
 - [ ] Chat persistence
 - [ ] More providers/models
