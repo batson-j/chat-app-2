@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { IoSettings } from 'react-icons/io5';
 import ProviderModelSelector from './ProviderModelSelector';
 import { usePreferences } from '@renderer/contexts/PreferencesContext';
 import { motion } from 'framer-motion';
@@ -71,7 +70,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isGenerating = fal
               onModelChange={handleModelChange}
             />
           </div>
-          <div className="flex flex-row">
+          <div className="flex flex-row space-x-3">
             <textarea
               className="input-field"
               value={input}
@@ -99,12 +98,6 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isGenerating = fal
             >
               Send
             </motion.button>
-            <button
-              className="ml-2 p-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded hover:from-blue-600 hover:to-purple-600 transition duration-300"
-              onClick={handleSettingsClick}
-            >
-              <IoSettings />
-            </button>
           </div>
         </div>
       )}

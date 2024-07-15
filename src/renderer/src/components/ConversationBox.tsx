@@ -14,7 +14,7 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({ conversationId }) => 
   }
   const sm = async (message: string, provider: string, model: string): Promise<void> => {
     const handleReplyStream = (
-      event: Electron.IpcRendererEvent,
+      _event: Electron.IpcRendererEvent,
       activeConversation: Conversation
     ): void => {
       setConversationState({

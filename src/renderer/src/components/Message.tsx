@@ -10,8 +10,8 @@ const Message: React.FC<MessageProps> = ({ text, messageType }) => {
 
   const getMessageClassName = (): string => {
     return messageType === MessageType.Reply
-      ? 'py-1 px-4 bg-blue-900 rounded text-left'
-      : 'py-1 px-4 bg-gray-900 rounded text-left';
+      ? 'py-1 px-4  rounded text-left'
+      : 'py-1 px-4  rounded text-left';
   };
 
   const handleCopy = (code: string): void => {

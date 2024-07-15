@@ -20,7 +20,8 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'error',
     '@typescript-eslint/no-explicit-any': 'error',
     'no-console': 'warn',
-    'prefer-const': 'error'
+    'prefer-const': 'error',
+    'react/prop-types': 'off'
   },
   plugins: ['@typescript-eslint'],
   parser: '@typescript-eslint/parser',
