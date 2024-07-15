@@ -1,5 +1,5 @@
 // src/renderer/src/components/ProviderModelSelector.tsx
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { PreferencesState } from '../contexts/PreferencesContext';
 
 interface ProviderModelSelectorProps {
@@ -17,7 +17,7 @@ const ProviderModelSelector: React.FC<ProviderModelSelectorProps> = ({
   onProviderChange,
   onModelChange
 }) => {
-  const handleProviderChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleProviderChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
     onProviderChange(event.target.value);
     const provider = preferences.providers.find((p) => p.name === event.target.value);
     if (provider && provider.models.length > 0) {
@@ -25,7 +25,7 @@ const ProviderModelSelector: React.FC<ProviderModelSelectorProps> = ({
     }
   };
 
-  const handleModelChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleModelChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
     onModelChange(event.target.value);
   };
 

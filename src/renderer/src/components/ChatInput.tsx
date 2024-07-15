@@ -16,15 +16,15 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isGenerating = fal
   const [selectedModel, setSelectedModel] = useState(preferences.providers[0].models[0].name);
   const [showSettings, setShowSettings] = useState(false);
 
-  const handleProviderChange = (provider: string) => {
+  const handleProviderChange = (provider: string): void => {
     setSelectedProvider(provider);
   };
 
-  const handleModelChange = (model: string) => {
+  const handleModelChange = (model: string): void => {
     setSelectedModel(model);
   };
 
-  const handleSendMessage = () => {
+  const handleSendMessage = (): void => {
     if (!isGenerating) {
       if (input.trim()) {
         onSendMessage(input.trim(), selectedProvider, selectedModel);
@@ -33,11 +33,11 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isGenerating = fal
     }
   };
 
-  const handleSettingsClick = () => {
+  const handleSettingsClick = (): void => {
     setShowSettings(!showSettings);
   };
 
-  const handleSettingsClose = () => {
+  const handleSettingsClose = (): void => {
     setShowSettings(false);
   };
 
@@ -115,7 +115,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isGenerating = fal
 const SettingsPanel: React.FC = () => {
   return (
     <div
-      className="flex-grow p-2 border rounded resize-none bg-gray-800 p-4"
+      className="flex-growborder rounded resize-none bg-gray-800 p-4"
       style={{
         overflowX: 'auto',
         textOverflow: 'ellipsis',

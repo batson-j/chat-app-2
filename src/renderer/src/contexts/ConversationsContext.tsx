@@ -1,6 +1,6 @@
 // src/contexts/PreferencesContext.tsx
 import React, { PropsWithChildren, createContext, useContext, useState } from 'react';
-import { Conversation } from '@model/Conversation';
+import { Conversation } from '../../../model/Conversation';
 
 interface ConversationsState {
   conversations: { [key: string]: Conversation };
