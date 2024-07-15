@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import Markdown from 'react-markdown';
 import { MessageProps, MessageType } from '../../../model/Conversation';
+import { synthwave84 } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 const Message: React.FC<MessageProps> = ({ text, messageType }) => {
   const [copied, setCopied] = useState(false);
@@ -37,7 +37,7 @@ const Message: React.FC<MessageProps> = ({ text, messageType }) => {
                   {...{ ...rest, ref: undefined }} // Remove ref prop
                   PreTag="div"
                   language={match[1]}
-                  style={dark}
+                  style={synthwave84}
                 >
                   {String(children).trim()}
                 </SyntaxHighlighter>
