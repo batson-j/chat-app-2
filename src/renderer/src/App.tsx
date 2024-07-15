@@ -6,17 +6,14 @@ import 'allotment/dist/style.css';
 import ConversationBox from './components/ConversationBox';
 import { useConversationsState } from './contexts/ConversationsContext';
 import { Conversation } from '../../model/Conversation';
+import { motion } from 'framer-motion';
 
 function App(): JSX.Element {
   const { conversationState, setConversationState } = useConversationsState();
 
-  const [activeConversationId, setActiveConversationId] = useState<string>(
-    Object.keys(conversationState.conversations)[0]
-  );
+  const [activeConversationId, setActiveConversationId] = useState<string | undefined>();
 
   const handleConversationClick = (conversationId: string): void => {
-    console.log(conversationId, 'conversation selected');
-    console.log(conversationState);
     setActiveConversationId(conversationId);
   };
 
@@ -40,7 +37,9 @@ function App(): JSX.Element {
     const newConversations = { ...conversationState.conversations };
     delete newConversations[id];
 
-    if (activeConversationId === id) {
+    if (Object.keys(newConversations).length === 0) {
+      setActiveConversationId('');
+    } else if (activeConversationId === id) {
       const newActiveId = Object.keys(newConversations)[0];
       setActiveConversationId(newActiveId || '');
     }
@@ -49,10 +48,16 @@ function App(): JSX.Element {
       conversations: newConversations
     });
   };
+
   return (
-    <div className="App">
+    <motion.div
+      className="App glass-panel"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
       <Allotment defaultSizes={[15, 85]}>
-        <Allotment.Pane minSize={250}>
+        <Allotment.Pane minSize={250} className="glass-panel">
           <ConversationList
             activeConversationId={activeConversationId}
             handleConversationClick={handleConversationClick}
@@ -60,11 +65,11 @@ function App(): JSX.Element {
             handleDeleteConversation={handleDeleteConversation}
           />
         </Allotment.Pane>
-        <Allotment.Pane snap>
+        <Allotment.Pane snap className="glass-panel">
           {activeConversationId && <ConversationBox conversationId={activeConversationId} />}
         </Allotment.Pane>
       </Allotment>
-    </div>
+    </motion.div>
   );
 }
 

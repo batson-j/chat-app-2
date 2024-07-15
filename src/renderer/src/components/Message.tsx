@@ -8,13 +8,13 @@ const Message: React.FC<MessageProps> = ({ text, messageType }) => {
   const [copied, setCopied] = useState(false);
   const [hover, setHover] = useState(false);
 
-  const getMessageClassName = () => {
+  const getMessageClassName = (): string => {
     return messageType === MessageType.Reply
       ? 'py-1 px-4 bg-blue-900 rounded text-left'
       : 'py-1 px-4 bg-gray-900 rounded text-left';
   };
 
-  const handleCopy = (code: string) => {
+  const handleCopy = (code: string): void => {
     navigator.clipboard.writeText(code);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
@@ -25,7 +25,7 @@ const Message: React.FC<MessageProps> = ({ text, messageType }) => {
       <Markdown
         components={{
           code(props) {
-            const { children, className, node, ...rest } = props;
+            const { children, className, ...rest } = props;
             const match = /language-(\w+)/.exec(className || '');
             return match ? (
               <div

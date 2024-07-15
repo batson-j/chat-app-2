@@ -6,11 +6,7 @@ module.exports = {
     'plugin:react-hooks/recommended',
     '@electron-toolkit/eslint-config-ts/recommended',
     '@electron-toolkit/eslint-config-prettier',
-    'plugin:prettier/recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:import/recommended',
-    'plugin:import/typescript',
-    'plugin:jsx-a11y/recommended'
+    'plugin:prettier/recommended'
   ],
   rules: {
     semi: ['error', 'always'],

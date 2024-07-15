@@ -1,5 +1,6 @@
 import React from 'react';
-import Message, { MessageProps } from './Message';
+import Message from './Message';
+import { MessageProps, MessageType } from '../../../model/Conversation';
 
 interface MessageListProps {
   messages: MessageProps[];
@@ -7,9 +8,12 @@ interface MessageListProps {
 
 const MessageList: React.FC<MessageListProps> = ({ messages }) => {
   return (
-    <div className="flex-1 overflow-y-auto p-4">
+    <div className="message-list">
       {messages.map((message, index) => (
-        <div key={index} className="mb-4">
+        <div
+          key={index}
+          className={`message ${message.messageType === MessageType.UserMessage ? 'user-message' : 'ai-message'}`}
+        >
           <Message text={message.text} messageType={message.messageType} />
         </div>
       ))}

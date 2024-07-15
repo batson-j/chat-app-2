@@ -1,8 +1,8 @@
-// src/renderer/src/components/ChatInput.tsx
 import React, { useState } from 'react';
 import { IoSettings } from 'react-icons/io5';
 import ProviderModelSelector from './ProviderModelSelector';
 import { usePreferences } from '@renderer/contexts/PreferencesContext';
+import { motion } from 'framer-motion';
 
 interface ChatInputProps {
   onSendMessage: (message: string, provider: string, model: string) => void;
@@ -42,7 +42,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isGenerating = fal
   };
 
   return (
-    <div className="p-4 bg-gray-1000">
+    <div className="input-area">
       {showSettings ? (
         <div className="flex flex-col" onClick={handleSettingsClose}>
           <SettingsPanel />
@@ -73,7 +73,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isGenerating = fal
           </div>
           <div className="flex flex-row">
             <textarea
-              className="flex-grow p-2 border rounded resize-none"
+              className="input-field"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => {
@@ -91,15 +91,16 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isGenerating = fal
                 width: '100%'
               }}
             />
-            <button
+            <motion.button
+              className="send-button"
               onClick={handleSendMessage}
-              className="ml-2 p-2 bg-blue-500 text-white rounded"
-              disabled={isGenerating}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               Send
-            </button>
+            </motion.button>
             <button
-              className="ml-2 p-2 bg-blue-900 text-gray-300 rounded hover:text-gray-100"
+              className="ml-2 p-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded hover:from-blue-600 hover:to-purple-600 transition duration-300"
               onClick={handleSettingsClick}
             >
               <IoSettings />

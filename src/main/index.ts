@@ -140,9 +140,6 @@ ipcMain.on(
   'conversation',
   async (event, conversation: Conversation, provider: string, modelName: string) => {
     // Update the model based on the selected provider and model
-    console.log('conversation:', conversation);
-    console.log('provider:', provider);
-    console.log('modelName:', modelName);
     switch (provider) {
       case 'OpenAI':
         model = new ChatOpenAI({
@@ -167,7 +164,6 @@ ipcMain.on(
     try {
       for await (const chunk of await model.stream(text)) {
         tokens.push(chunk.content.toString());
-        console.log(tokens);
         event.sender.send('reply-stream', {
           ...conversation,
           messages: [

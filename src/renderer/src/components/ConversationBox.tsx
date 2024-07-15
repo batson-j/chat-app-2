@@ -17,8 +17,6 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({ conversationId }) => 
       event: Electron.IpcRendererEvent,
       activeConversation: Conversation
     ): void => {
-      console.log(activeConversation);
-      console.log(conversationState);
       setConversationState({
         conversations: {
           ...conversationState.conversations,

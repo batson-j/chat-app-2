@@ -12,16 +12,9 @@ interface ConversationsContextProps {
 }
 
 const ConversationsContext = createContext<ConversationsContextProps | undefined>(undefined);
-const uuid = crypto.randomUUID();
 export const ConversationsProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [conversationState, setConversationState] = useState<ConversationsState>({
-    conversations: {
-      uuid: {
-        id: uuid,
-        messages: [],
-        title: 'New Chat...'
-      }
-    }
+    conversations: {}
   });
 
   return (
