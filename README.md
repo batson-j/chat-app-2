@@ -1,6 +1,8 @@
 # chat-app
 
-LLM Chat application using Electron with React and TypeScript.
+LLM Chat application using Electron with React and TypeScript. This project was mostly a test of Claude 3.5 Sonnets ability to translate design requirements into Tailwind CSS classes and React components.
+
+For example, the design in the screenshot was created by asking Claude to generate a modern, glassmorphic design with neon colors. Claude was that asked to refine the design with images of the resulting layout provided as additional conext. With some minor manual tweaks, this was the result of a couple of hours of coding.
 
 ![Screenshot](screenshot.png)
 
